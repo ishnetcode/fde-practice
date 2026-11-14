@@ -7,7 +7,9 @@ authors = [
     { name = "ishras-coder", email = "96101505+ishnetcode@users.noreply.github.com" }
 ]
 requires-python = ">=3.15"
-dependencies = []
+dependencies = [
+    "pydantic>=2.14.3",
+]
 
 [project.scripts]
 fde-practice = "fde_practice:main"
