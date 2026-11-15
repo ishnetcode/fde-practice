@@ -30,24 +30,25 @@ class QuoteRequestDto(BaseModel):
             return datetime.strptime(value, "%d/%m/%Y")
         except ValueError:
             return value
-    
-try:
-    q = QuoteRequestDto(
-        policy_id="P1",
-        cover_type="comprehensive",
-        premium=Decimal("0.01"),
-        start_date="15/09/2026",
-        drivers=[
-            {"full_name": "John Doe", "age": 17, "years_no_claims": 2},
-            {"full_name": "Jane Smith", "age": 16, "years_no_claims": 5},
-            {"full_name": "Sean Smith", "age": 27}
-        ]
-    )
-except ValidationError as e:
-    for error in e.errors():
-        field = ".".join([str(p) for p in error["loc"]])
-        print(f"{field}: {error['msg']}")
-else:
-    print(q)
-    print("-"*40)
-    print(q.drivers[0].full_name, q.drivers[0].age, q.drivers[0].years_no_claims)
+        
+if __name__ == "__main__":  
+    try:
+        q = QuoteRequestDto(
+            policy_id="P1",
+            cover_type="comprehensive",
+            premium=Decimal("0.01"),
+            start_date="15/09/2026",
+            drivers=[
+                {"full_name": "John Doe", "age": 17, "years_no_claims": 2},
+                {"full_name": "Jane Smith", "age": 16, "years_no_claims": 5},
+                {"full_name": "Sean Smith", "age": 27}
+            ]
+        )
+    except ValidationError as e:
+        for error in e.errors():
+            field = ".".join([str(p) for p in error["loc"]])
+            print(f"{field}: {error['msg']}")
+    else:
+        print(q)
+        print("-"*40)
+        print(q.drivers[0].full_name, q.drivers[0].age, q.drivers[0].years_no_claims)

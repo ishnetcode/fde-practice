@@ -6,8 +6,9 @@ readme = "README.md"
 authors = [
     { name = "ishras-coder", email = "96101505+ishnetcode@users.noreply.github.com" }
 ]
-requires-python = ">=3.15"
+requires-python = ">=3.13"
 dependencies = [
+    "fastapi[standard]>=0.162.7",
     "pydantic>=2.14.3",
 ]
 
