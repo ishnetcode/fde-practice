@@ -4,6 +4,8 @@ from fastapi.responses import JSONResponse
 from quote_request import QuoteRequestDto
 from quote_response import QuoteResponseDto
 from quote_store import QuoteStore
+import time
+import asyncio
 
 app = FastAPI()
 quote_store = QuoteStore()
@@ -18,6 +20,16 @@ async def validation_handler(request: Request, exc: RequestValidationError):
 @app.get("/")
 def read_root():
     return {"message": "Hello World"}
+
+@app.get("/slow-blocking/{n}")
+async def slow_blocking(n: int):
+    time.sleep(5)              # blocking call inside async def
+    return {"n": n}
+
+@app.get("/slow-async/{n}")
+async def slow_async(n: int):
+    await asyncio.sleep(5)     # non-blocking wait
+    return {"n": n}
 
 def to_response(quote_id: int, quote: QuoteRequestDto) -> QuoteResponseDto:
     if quote is None:
