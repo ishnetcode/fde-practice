@@ -1,10 +1,17 @@
+import pytest
 from decimal import Decimal
 from fastapi.testclient import TestClient
-from api import app
+from api import app, get_quote_store
+from quote_store import QuoteStore
 
-client = TestClient(app)
+@pytest.fixture
+def client():
+    fresh_store = QuoteStore()  # Create a fresh instance of QuoteStore for each test
+    app.dependency_overrides[get_quote_store] = lambda: fresh_store
+    yield TestClient(app)
+    app.dependency_overrides.clear()
 
-def test_another_quote_creation():
+def test_another_quote_creation(client):
     # Arrange
     request_data = {
         "policy_id": "P2",
@@ -21,7 +28,7 @@ def test_another_quote_creation():
     assert create_response.status_code == 201
     
 
-def test_create_quote_returns_201_and_quote_id():
+def test_create_quote_returns_201_and_quote_id(client):
     # Arrange
     request_data = {
         "policy_id": "P1",
@@ -43,7 +50,7 @@ def test_create_quote_returns_201_and_quote_id():
     assert response_data["drivers"] == len(request_data["drivers"])
     
     
-def test_get_missing_quote_returns_404():
+def test_get_missing_quote_returns_404(client):
     # Act
     response = client.get("/quotes/999")  # Assuming quote_id 999 does not exist
 
