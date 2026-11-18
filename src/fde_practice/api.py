@@ -2,14 +2,16 @@ import asyncio
 import time
 from decimal import Decimal
 from typing import Annotated
+
+from fde_practice.errors import AppError
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from errors import AppError
-from quote_request import QuoteRequestDto
-from quote_response import QuoteResponseDto
-from quote_store import QuoteStore
-from rate_client import RateClient
+from fde_practice.quote_request import QuoteRequestDto
+from fde_practice.quote_response import QuoteResponseDto
+from fde_practice.quote_store import QuoteStore
+from fde_practice.rate_client import RateClient
+
 app = FastAPI()
 quote_store = QuoteStore()
 

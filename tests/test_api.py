@@ -1,10 +1,11 @@
 import asyncio
 from decimal import Decimal
 from typing import ClassVar
+
 import pytest
-from fastapi.testclient import TestClient
 from api import app, get_quote_store, get_rate_client
 from errors import RateServiceUnavailableError, UnsupportedCurrencyError
+from fastapi.testclient import TestClient
 from quote_store import QuoteStore
 
 VALID_PAYLOAD = {

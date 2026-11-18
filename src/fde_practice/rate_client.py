@@ -1,8 +1,7 @@
 from decimal import Decimal  # Decimal for money and rates, never float (Day 2 lesson).
 
 import httpx  # The async-capable HTTP client: Python's HttpClient. It came with fastapi[standard].
-
-from errors import (
+from fde_practice.errors import (
     AppError,
     RateServiceBadResponseError,
     RateServiceTimeoutError,

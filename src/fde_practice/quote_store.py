@@ -1,4 +1,4 @@
-from quote_request import QuoteRequestDto
+from fde_practice.quote_request import QuoteRequestDto
 
 
 class QuoteStore:
