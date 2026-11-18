@@ -1,5 +1,6 @@
 from quote_request import QuoteRequestDto
 
+
 class QuoteStore:
     def __init__(self):
         # the constructor: set up self._quotes and self._next_id here
